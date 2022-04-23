@@ -1,0 +1,15 @@
+Enero/2021 a presente 
+Freelancer.- Guayaquil/Ecuador
+Deberes:
+proyectos con servidores, routers y switches
+troubleshooting de configuracion de routers domesticos
+troubleshooting de problemas regulares sobre la conexion de red
+diseno y analisis de la infraestructura de red
+
+Enero/2022 a presente
+Ayudante de Devops.- Guayaquil/Ecuador
+Deberes:
+proyectos de configuracion de routers y switches de cisco
+soporte en proyectos en desarrollo de apis en python y otros lenguajes de programacion
+desarrollo de paginas web y servidores en linux
+mantenimiento en computadoras e instalacion de sistema operativos y aplicaciones adicionales 
