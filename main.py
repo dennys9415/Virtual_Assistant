@@ -9,8 +9,17 @@ import webbrowser as wb                 #web browser
 import psutil                           #pip install psutil
 #import pyjokes                          #pip install pyjokes
 import pyautogui                        #pip install pyautogui, screenshot
+import re
+import random
+#import wolframalpha                    #calculator  #pip install wolframalpha 
+import json
+import requests
+from urllib.request import urlopen
+import time
 
 engine = pyttsx3.init()
+#wolframalpha_app_id='wolfram alpha id here'
+
 #engine.setProperty('voice', voices[1].id)  # this is female voice
 
 # ##LIST OF VOICES
@@ -115,7 +124,7 @@ if __name__ == "__main__":
     #print("this show the begining")
     while True:
         #query=Listening().lower() #all words will be stored in lower case for easy recognition
-        query='play music please'
+        query='where is new york'
         if 'time' in query:
             this_time()
 
@@ -224,14 +233,125 @@ if __name__ == "__main__":
             #speak('What should I play')
             print('What should I play')
             #answer=Listening().lower()
-            ##answer='22'
-            ##no=int(answer.replace('number',''))
-            #os.startfile(os.path.join(music_dir,music[no]))
+            answer="Fighters"
+            query2=answer.lower()
+            music_lw = [x.lower() for x in music] #lowercase a list
+
             print(music)
-            if sys.platform == "win32":
-                os.startfile('dennys.txt')
-            else:
-                opener = "open" if sys.platform == "darwin" else "xdg-open"
-                #subprocess.call([opener, music_dir+'/22.mp3'])
-                print("it works!")
+            print(music_lw)
+            print("-------")
+            # if query2 in music_lw:
+            #     print("music exist")
+            # else:
+            #     print("sorry Sir, that music doesn't exist")
+            
+            # print("-------")
+            for a in music:
+                if a.endswith(".mp3"):
+                    print(a)
+            
+            #development by dennys
+            '''
+            for a in music:
+                print(a)
+                print(a.lower())
+                b=a.lower()
+                print("-------")
+                if query2 in b:
+                    print ("checked")
+                    print("the song exists")
+                    #speak("the song exists")
+                    if sys.platform == "win32":
+                        os.startfile(music_dir+a)
+                        print("this is playing: "+a)
+                        speak("this is playing: "+b)
+                        print("-------")
+                    else:
+                        opener = "open" if sys.platform == "darwin" else "xdg-open"
+                        #subprocess.call([opener, music_dir+a])
+                        print(music_dir+"'"+a+"'")
+                        print("this is playing: "+a)
+                        #speak("this is playing: "+b)
+                        print("-------")
+                else:
+                    print("not checked")
+                    print("-------")
+                '''
+            ## udemy    
+            # while('number' not in ans and ans != 'random' and ans != 'you choose'):
+            #     print("I could not understand you. Please try again")
+            #     ans= Listening().lower()
+            
+            # if 'number' in ans:
+            #     no=int(ans.replace('number',''))
+            # elif 'random' or 'your choose' in ans:
+            #     no=random.randint(1,100)
+            #os.startfile(os.path.join(songs_dir,music[no]))
+
+
             quit()
+        
+        elif 'where is' in query:
+            query=query.replace("where is", "")
+            location=query
+            print("Sir, you asked to locate "+location)
+            wb.open_new_tab("https://www.google.com/maps/place/"+location)
+            quit()
+
+        elif 'news' in query:
+            try:
+                #jsonObj=urlopen("https://newsapi.org/v2/everything?q=tesla&from=2022-03-27&sortBy=publishedAt&apiKey=0302968baeae4926899b36a4ad8f7d1a")
+                #jsonObj=urlopen("https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=0302968baeae4926899b36a4ad8f7d1a")
+                jsonObj=urlopen("https://newsapi.org/v2/top-headlines?country=us&category=entertainment&apiKey=0302968baeae4926899b36a4ad8f7d1a")
+                data=json.load(jsonObj)
+                i=1
+
+                print("Here are some top headlines from the Entertainment Industry")
+                print("-----TOP HEADLINES-----"+"\n")
+                for a in data['articles']:
+                    print(str(i)+'- '+a['title']+'\n')
+                    print(a['description']+'\n')
+                    #speak(a['title'])
+                    i+=1
+                quit()
+            
+            except Exception as e:
+                print(str(e))
+
+        
+        # elif 'calculate' in query:
+        #     client=wolframalpha.Client(wolframalpha_app_id)
+        #     a=query.lower().split().index('calculate')
+        #     query=query.split()[a + 1:]
+        #     ans=client.query(''.join(query))
+        #     answer=next(ans.results).text
+        #     print("The answer is "+answer)
+        #     quit()
+
+        # elif 'what is' in query or'who is' in query:
+        #     client=wolframalpha.Client(wolframalpha_app_id)
+        #     a=client.query(query)
+        #     try:
+        #         print(next(a.results).text)
+        #     except StopIteration:
+        #         print("No results")
+        #     quit()
+        
+
+        elif 'stop listening' in query:
+            print("How many seconds do you want to finish the listening")
+            ans=int(Listening())
+            time.sleep(ans)
+            print(ans+" seconds for stop virtual assistant")
+            quit()
+
+
+        elif 'log out' in query:
+            os.system("shutdown -l")
+
+        elif 'restart' in query:
+            os.system("shutdown /r /t 1")
+
+        elif 'shutdown' in query:
+            os.system("shutdown /s /t 1")
+  
